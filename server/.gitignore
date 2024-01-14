@@ -2,4 +2,3 @@ node_modules
 .env
 
 vercel.json
-sms.js
