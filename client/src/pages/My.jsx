@@ -3,14 +3,33 @@ import Navbar from '../components/Navbar'
 const My = () => {
   return (
     <>
-     <div>
+     <div className='myAccount'>
      <Navbar/>
-    <section id='myNav' > 
-    <div id='blue'></div>
-    <div id='white'></div>
-    </section>
+  <section className='nav-invwx stick'> 
+    <div className="comifo myma  pb-3 pt-2">
+      <div className="my-col-2 xtl">
+        <span className="avatar"></span>
+      </div>
+      <div className="my-col-10 xtl">
+        <div className="my-tf-18">
+          <span id="u_nam">1</span>
+        </div>
+        <div className="my-tf-12">
+          Mob:
+          <span id="u_mob">7905321205</span>,
+          ID:
+          <span id="u_id">264227</span>
+        </div>
+        <div className="infob"></div>
+      </div>
+      <div className="my-col-12">
+          <div className="srm67b cnn">Change Nick Name</div>
+          <div className="srm67b cnn">Change Password</div>
+      </div>
+    </div>
+  </section>
 
-   <section id='profile'>
+   {/* <section id='profile'>
    <div id='myProfile'>
      <span className='avatar'></span>
       <div id='data'>
@@ -29,9 +48,9 @@ const My = () => {
    
    </div>
  
-   </section>
+   </section> */}
 
-   <section className='myList'>
+   <section className='myList gap'>
      <div className='list'>
      <span className='icon orderIcon'></span>
      <span className='txt'>Order Record</span>

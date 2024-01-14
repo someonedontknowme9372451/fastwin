@@ -6,14 +6,22 @@ const Invite = () => {
   const navigate=useNavigate();
   return (
     <>
-     <div id='invite'>
+     <div className='invite'>
      <Navbar/>
-    <section id='inviteNav' > 
-    <div id='blue'></div>
-    <div id='white'></div>
+    <section className='nav-invwx'> 
+       <div className='myma comifo'>
+         <div className='col-6 xlt'>
+           <div className='nav-tf-12'>Agent Amount</div>
+           <div className='nav-tfcdb'>₹ <span className='nav-tf-28'>365.67</span></div>
+         </div>
+    
+         <div className='col-6 jcrdg'>
+             <div className='nav-wdcom'>Withdraw</div>
+         </div>
+       </div>
     </section>
-   <section id='inviteWithdraw'>
-   <div id='withdraw'>
+   {/* <section id='inviteWithdraw' className='nav-width'>
+   <div id='withdraw' className='nav-width'>
     <div className='container'>
       <span>Agent amount</span>
       <h2>₹ 231</h2>
@@ -22,7 +30,7 @@ const Invite = () => {
       <button>Withdraw</button>
     </div>  
    </div>
-   </section>
+   </section> */}
 
    <section id='inviteContainer'>
      <span onClick={()=>{navigate('/invite/privilege')}}>Privilege</span>

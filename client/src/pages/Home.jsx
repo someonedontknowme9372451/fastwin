@@ -61,16 +61,46 @@ const Home = () => {
    </section>
  
    <section id='HomeGame'>
-     <img src={fastParityImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
-   
-    <img src={parityImage} alt='parity' onClick={()=>{navigate('/parity')}}/>
-    {/* <img src={sapreImage} alt='sapre' onClick={()=>{navigate('/sapre')}}/> */}
-    <img src={diceImage} alt='dice' onClick={()=>{navigate('/dice')}}/>
-    <img src={AnBImage} alt='AnB' onClick={()=>{navigate('/AnB')}}/>
-    <img src={wheelImage} alt='wheel' onClick={()=>{navigate('/circle')}}/>
-    <img src={jetxImage} alt='jetx'/>
-    <img src={MineSweeperImage} alt='MineSweeper'/>
-    <img src={ludoImage} alt='ludo'/>
+    <div className='col-6 pdr5'>
+      <div className='icard'>
+        <img src={fastParityImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+      </div>
+    </div>
+    <div className='col-6 pdl5'>
+      <div className='icard'>
+        <img src={parityImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+      </div>
+    </div>
+    <div className='col-6 pdr5'>
+      <div className='icard'>
+        <img src={AnBImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+      </div>
+    </div>
+    <div className='col-6 pdl5'>
+      <div className='icard'>
+        <img src={wheelImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+      </div>
+    </div>
+    <div className='col-6 pdr5'>
+      <div className='icard'>
+        <img src={jetxImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+      </div>
+    </div>
+    <div className='col-6 pdl5'>
+      <div className='icard'>
+        <img src={MineSweeperImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+      </div>
+    </div>
+    <div className='col-6 pdr5'>
+      <div className='icard'>
+        <img src={ludoImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+      </div>
+    </div>
+    <div className='col-6 pdl5'>
+      <div className='icard'>
+        <img src={sapreImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+      </div>
+    </div>
    </section>
    
    </div> 
