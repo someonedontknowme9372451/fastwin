@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /fastwin
+Allow: /fastwin/parity
+Allow: /fastwin/ludo
