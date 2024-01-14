@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
 // app.use(cors({ origin: ['*'], methods:['POST','GET'],credentials:true }));
 app.use(cors());
-app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(express.static(path.join(__dirname, './dist')));
 userRoutes(app)
 fastParityRoutes(app)
 wheelRoutes(app)
@@ -24,7 +24,7 @@ const port = process.env.PORT || 3000;
 database();
 
 app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    res.sendFile(path.join(__dirname, './dist/index.html'));
 })
 
 app.get('*',(req,res)=>{

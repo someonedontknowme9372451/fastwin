@@ -52,7 +52,7 @@ const autoUpdateColorRecordTime = async () => {
       if (seconds === 10) {
         const period = await getWheelPeriod() + 1;
         const color = 'red';
-        await createRecord(color, period);
+       // await createRecord(color, period);
       }
     } catch (err) {
       console.error('Error updating color records time:', err);
