@@ -3,40 +3,38 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const database = require('./db');
-const userRoutes=require('./Routes/user.routes')
-const fastParityRoutes=require('./Routes/fastparity.routes')
-const wheelRoutes= require('./Routes/wheel.routes')
-const AnBRoutes= require('./Routes/andarbahar.routes')
+const userRoutes = require('./Routes/user.routes');
+const fastParityRoutes = require('./Routes/fastparity.routes');
+const wheelRoutes = require('./Routes/wheel.routes');
+const AnBRoutes = require('./Routes/andarbahar.routes');
 const path = require('path');
 const app = express();
+
+// Middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}))
-// app.use(cors({ origin: ['*'], methods:['POST','GET'],credentials:true }));
-app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors()); // Enable CORS
 app.use(express.static(path.join(__dirname, './dist')));
-userRoutes(app)
-fastParityRoutes(app)
-wheelRoutes(app)
-AnBRoutes(app)
+
+// Routes
+userRoutes(app);
+fastParityRoutes(app);
+wheelRoutes(app);
+AnBRoutes(app);
+
+// Database connection
+database();
 
 const port = process.env.PORT || 3000;
 
-database();
-app.use(express.static(__dirname, './dist/index.html', { type: 'module' }));
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-  });
-app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname, './dist/index.html'));
-})
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './dist/index.html'));
+});
 
-app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-   
-})
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './dist/index.html'));
+});
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
