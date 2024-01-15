@@ -68,27 +68,27 @@ const Home = () => {
     </div>
     <div className='col-6 pdl5'>
       <div className='icard'>
-        <img src={parityImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+        <img src={parityImage} alt='fast-parity' onClick={()=>{navigate('/parity')}}/>
       </div>
     </div>
     <div className='col-6 pdr5'>
       <div className='icard'>
-        <img src={AnBImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+        <img src={AnBImage} alt='fast-parity' onClick={()=>{navigate('/AnB')}}/>
       </div>
     </div>
     <div className='col-6 pdl5'>
       <div className='icard'>
-        <img src={wheelImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+        <img src={wheelImage} alt='fast-parity' onClick={()=>{navigate('/')}}/>
       </div>
     </div>
     <div className='col-6 pdr5'>
       <div className='icard'>
-        <img src={jetxImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+        <img src={jetxImage} alt='fast-parity' onClick={()=>{navigate('/')}}/>
       </div>
     </div>
     <div className='col-6 pdl5'>
       <div className='icard'>
-        <img src={MineSweeperImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+        <img src={MineSweeperImage} alt='fast-parity' onClick={()=>{navigate('/')}}/>
       </div>
     </div>
     <div className='col-6 pdr5'>
