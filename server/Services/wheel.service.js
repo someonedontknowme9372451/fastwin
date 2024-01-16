@@ -1,4 +1,5 @@
 const { wheelModal } = require('../Model/user.model');
+const cron = require('node-cron');
 
 const getCountdown = () => {
   const countDownDate = Date.now() / 1000;
@@ -43,21 +44,21 @@ const getWheelPeriod = async () => {
   }
 };
 
-const autoUpdateColorRecordTime = async () => {
-  const updateInterval = 1000;
-  setInterval(async () => {
+const autoUpdateColorRecordTime = () => {
+  // Run the task every second
+  cron.schedule('* * * * * *', async () => {
     try {
       const countdown = getCountdown();
       const seconds = parseInt(countdown.seconds);
       if (seconds === 10) {
         const period = await getWheelPeriod() + 1;
         const color = 'red';
-       // await createRecord(color, period);
+        await createRecord(color, period);
       }
     } catch (err) {
       console.error('Error updating color records time:', err);
     }
-  }, updateInterval);
+  });
 };
 
 autoUpdateColorRecordTime();
