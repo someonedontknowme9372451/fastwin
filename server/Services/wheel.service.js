@@ -44,9 +44,8 @@ const getWheelPeriod = async () => {
   }
 };
 
-const autoUpdateColorRecordTime = () => {
-  // Run the task every second
-  cron.schedule('* * * * * *', async () => {
+const autoUpdateColorRecordTime = async() => {
+  // Run the task every second 
     try {
       const countdown = getCountdown();
       const seconds = parseInt(countdown.seconds);
@@ -58,9 +57,10 @@ const autoUpdateColorRecordTime = () => {
     } catch (err) {
       console.error('Error updating color records time:', err);
     }
-  });
 };
+cron.schedule('* * * * * *', async () =>{
+  autoUpdateColorRecordTime();
+})
 
-autoUpdateColorRecordTime();
 
 module.exports = { createRecord, getRecord };

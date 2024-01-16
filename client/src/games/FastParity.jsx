@@ -29,7 +29,7 @@ const FastParity = () => {
 
   const handleFetchColors = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:3000/get-color-records/fast-parity');
+      const response = await axios.get('https://fastwin.vercel.app/get-color-records/fast-parity');
       setTimeout(() => {
         fetchColors(response);
       }, 3000);
@@ -66,7 +66,7 @@ const FastParity = () => {
   useEffect(() => {
     const fetchColor = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/get-color-records/fast-parity');
+        const response = await axios.get('https://fastwin.vercel.app/get-color-records/fast-parity');
         const data = response.data.data.slice().reverse();
         setColorRecordsList(data.slice(-23));
       } catch (error) {
