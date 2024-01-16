@@ -1,5 +1,5 @@
 const { wheelModal } = require('../Model/user.model');
-const cron = require('node-cron');
+
 
 const getCountdown = () => {
   const countDownDate = Date.now() / 1000;
@@ -49,7 +49,7 @@ const autoUpdateColorRecord = async() => {
     try {
       const countdown = getCountdown();
       const seconds = parseInt(countdown.seconds);
-      if (seconds === 10) {
+      if (seconds === 10 || seconds < 10) {
         const period = await getWheelPeriod() + 1;
         const color = 'red';
         await createRecord(color, period);

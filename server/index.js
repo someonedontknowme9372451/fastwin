@@ -2,6 +2,7 @@ require('dotenv').config(); // Add this line to load environment variables
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const cron = require('node-cron');
 const database = require('./db');
 const userRoutes = require('./Routes/user.routes');
 const fastParityRoutes = require('./Routes/fastparity.routes');
@@ -29,7 +30,7 @@ database();
 
 // auto schedule
 
-cron.schedule('* * * * *', async () => {
+cron.schedule('* * * * * *', async () => {
   console.log('Running scheduled task...');
   await wheelService.autoUpdateColorRecord();
 });
