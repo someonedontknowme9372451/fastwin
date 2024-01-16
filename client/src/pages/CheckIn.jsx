@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-
+//const Treasure_b= lazy(()=>import('../assets/images/Treasure_b.png'))
+import Treasure_b from '../assets/images/Treasure_b.png'
 const CheckIn = () => {
   const navigate = useNavigate();
   const [isChecked, setisChecked] = useState(true)
@@ -81,7 +82,7 @@ const CheckIn = () => {
     
     </div>
       <p>Check in for 7 consecutive days to get treasure box and receive mysterious prizes! .</p>
-      <img src='https://fastwin.app/includes/images/Treasure_b.png' alt=''/>
+      <img src={Treasure_b} alt=''/>
     </section>
     </>
   )

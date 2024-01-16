@@ -31,9 +31,15 @@ database();
 // auto schedule
 
 cron.schedule('* * * * * *', async () => {
-  console.log('Running scheduled task...');
-  await wheelService.autoUpdateColorRecord();
+  try {
+    console.log('Running scheduled task...');
+    await wheelService.autoUpdateColorRecord();
+    console.log('Scheduled task completed successfully.');
+  } catch (error) {
+    console.error('Error in scheduled task:', error);
+  }
 });
+
 
 const port = process.env.PORT || 3000;
 
