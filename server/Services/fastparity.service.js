@@ -83,7 +83,7 @@ const autoUpdateColorRecordTime = () => {
       const countdown = getCountdown();
       const seconds = parseInt(countdown.seconds);
       if (seconds === 10) {
-        await addNewOrder();
+      //  await addNewOrder();
       }
     } catch (err) {
       console.error('Error updating color records time:', err);
