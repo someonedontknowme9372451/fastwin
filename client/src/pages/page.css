@@ -1444,7 +1444,6 @@ border: none;
 font-weight: 700;
 font-size: 18px;
 transition: transform .1s;
-padding-bottom: -22px;
 z-index: 999;
 }
 #checkBox .btn.checked{
