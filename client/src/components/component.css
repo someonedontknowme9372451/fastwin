@@ -179,10 +179,242 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 
+/* Bottom Dialog */
+
+.backdrop{
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.bottom-dialog{
+  position:fixed;
+  bottom: 0;
+  margin: auto;
+  left: 0;
+  right: 0;
+  max-width: 480px;
+  background-color: #fff;
+  color: #666;
+  font-family: sans-serif;
+  border-radius: 8px 8px 0 0;
+  animation: .3s ease-out 0s 1 slideinfrombottom;
+  z-index: 1000;
+}
+@keyframes slideinfrombottom{
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+  }
+  
+  .dialog{
+    color: #1565c0;
+    height: 46px;
+    line-height: 46px;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+  }
+  .dialog.red{
+    color: #e54d42;
+    background: none;
+    box-shadow: none;
+  }
+  .dialog.green{
+    color: #39b54a;
+    background: none;
+    box-shadow: none;
+  }
+  .dialog.violet{
+    color: #6739b6;
+    background: none;
+    box-shadow: none;
+  }
+  .bfard{
+    margin: 0 10px;
+    height: 49px;
+    line-height: 49px;
+    border-radius: 12px;
+    background: #e6e6e6;
+    display: flex;
+  }
+.bfard-txt{
+  font-family: sans-serif;
+  font-size: 20px;
+  color: #383b45;
+  padding-right: 15px;
+  padding-left: 15px ;
+  text-align: left;
+}
+.bfard-btn{
+  display: flex;
+  padding-right: 0.25rem!important;
+  padding-top: 0.25rem!important;
+  justify-content: right;
+}
+.tf-28{
+  font-size: 28px;
+}
+.rc-wal {
+  text-align: center;
+  line-height: 40px;
+  color: #fff;
+  height: 40px;
+  width: -webkit-fill-available;
+  max-width: 100px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 10px;
+}
+.rc-wal {
+  background:#0093ff ;
+}
+.contract-row{
+  padding: 10px;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.col-12{
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.cont-amt {
+  width: 60px;
+  border: 1px solid rgb(214, 214, 214);
+  border-radius: 4px;
+  font-size: 16px;
+  display: inline-block;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  cursor: pointer;
+}
+.cont-amt.violet{
+  color: #6739b6;
+  border-bottom: 2px solid;
+  background: none;
+  box-shadow: none;
+}
+.cont-amt.red{
+  color: #e54d42;
+  border-bottom: 2px solid;
+  background: none;
+  box-shadow: none;
+}
+.cont-amt.green{
+  color: #00c282;
+  border-bottom: 2px solid;
+  background: none;
+  box-shadow: none;
+}
+
+.num-row{
+  padding: 10px;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.silb{
+  display: inline-block;
+  margin-right: 0.5rem!important;
+}
+.num-row-box{
+  display: flex;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.col-5 {
+  display: flex;
+  -ms-flex: 0 0 41.666667%;
+  flex: 0 0 41.666667%;
+  max-width: 41.666667%;
+}
+
+.xpan{
+  width: 50px;
+  border: 1px solid rgb(214, 214, 214);
+  border-radius: 4px;
+  font-size: 16px;
+  display: inline-block;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  cursor: pointer;
+}
+.col-2 {
+  -ms-flex: 0 0 16.666667%;
+  flex: 0 0 16.666667%;
+  max-width: 16.666667%;
+}
+.xtl{
+  display: flex;
+  justify-content: left;
+  padding-left: 15px;
+}
+.xtc{
+  display: flex;
+  justify-content: center;
+}
+.xtr{
+ padding-right: 15px;
+  display: flex;
+  justify-content: right;
+}
+.xnum {
+  font-size: 28px;
+  color: rgb(250, 60, 9);
+  font-weight: 700;
+}
+.mt-2{
+  margin-top: 0.5rem !important;
+}
+.tf-16{
+  font-size: 16px;
+}
+.btn-row{
+  margin-bottom: 0.5rem!important;
+}
+.btn-con.newod{
+  color: #fff;
+  background: #0093ff;
+  box-shadow: #0000004d 0px 0px 8px;
+  border-radius: 8px;
+  height: 48px;
+  line-height: 48px;
+  font-size: 16px;
+  width: 100%;
+  text-align: center;
+}
+.btn-con.newod.green {
+  background: #00c282;
+}
+.btn-con.newod.red {
+  background: #fa3c09;
+}
+.btn-con.newod.violet {
+  background: #6655d3;
+}
 @media (max-width: 767px){
     .navbar{
         flex: 0 0 50%;
         width: 100%;
         max-width: 100%;
       } 
+      .bottom-dialog{
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
     }

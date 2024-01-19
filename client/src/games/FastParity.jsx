@@ -4,6 +4,8 @@ import axios from 'axios';
 import RS from '../components/RS';
 import GS from '../components/GS';
 import QS from '../components/QS';
+import BottomDialog from '../components/BottomDialog';
+
 
 const FastParity = () => {
   const navigate = useNavigate();
@@ -11,6 +13,8 @@ const FastParity = () => {
   const [colorRecordsList, setColorRecordsList] = useState([]);
   const [activeTab, setActiveTab] = useState('everyOneOrder');
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const [isDialogOpenValue, setIsDialogOpenValue] = useState('')
 
   const fetchColors = useCallback((response) => {
     try {
@@ -51,6 +55,7 @@ const FastParity = () => {
 
     if (parseInt(seconds, 10) < 10) {
       setIsButtonDisabled(true);
+     // setIsDialogOpen(false)
     }
 
     if (seconds === '03') {
@@ -91,6 +96,17 @@ const FastParity = () => {
     borderBottom: activeTab === 'myOrder' ? '3px solid #1e88e5' : 'none',
   };
 
+
+  const handleDialogOpen =(value)=>{
+   setIsDialogOpen(true)
+    setIsDialogOpenValue(value)
+   //alert(color)
+  }
+  const toggleDialog = (isOpen) => {
+    setIsDialogOpen(isOpen);
+  };
+
+
   return (
     <>
       <section id='fastParityNav' className='top-nav'>
@@ -116,23 +132,24 @@ const FastParity = () => {
             </div>
             
           </div>
+          {/* <BottomDialog color={'green'}/> */}
           <div className='game-btn'>
               <div className="color-btn">
-                <div className={`join green ${isButtonDisabled ? 'disabled' : ''}`}>
+                <div className={`join green ${isButtonDisabled ? 'disabled' : ''}`} onClick={()=>handleDialogOpen('green')}>
                   <span className='icon'></span>
                   <span className='txt'>Join Green</span>
                 </div>
                 <div className='color-bet-txt'>1:2</div>
               </div>
               <div className="color-btn">
-                <div className={`join violet ${isButtonDisabled ? 'disabled' : ''}`}>
+                <div className={`join violet ${isButtonDisabled ? 'disabled' : ''}`}  onClick={()=>handleDialogOpen('violet')}>
                 <span className='icon'></span>
                   <span className='txt'>Join Violet</span>
                 </div>
                 <div className='color-bet-txt'>1:4.5</div>
               </div>
               <div className="color-btn">
-                <div className={`join red ${isButtonDisabled ? 'disabled' : ''}`}>
+                <div className={`join red ${isButtonDisabled ? 'disabled' : ''}`}  onClick={()=>handleDialogOpen('red')}>
                 <span className='icon'></span>
                   <span className='txt'>Join Red</span>
                 </div>
@@ -231,6 +248,7 @@ const FastParity = () => {
               </div>
           </div>
       </section>
+      {isDialogOpen && <BottomDialog value={isDialogOpenValue} isDialog={toggleDialog}/>}
     </>
 
   )
