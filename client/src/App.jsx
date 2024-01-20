@@ -21,6 +21,7 @@ import AnB  from './games/AnB'
 import Circle from './games/Circle';
 // import Board from './games/Board';
 // import Ludo from './games/Ludo';
+ import Admin from './admin/Admin'
 
 function App() {
   return (
@@ -44,7 +45,9 @@ function App() {
         <Route path='/dice' element={<Dice/>}></Route>
         <Route path='/AnB' element={<AnB/>}></Route>
         <Route path='/Circle' element={<Circle/>}></Route>
+        <Route path="/admin" element={<Admin/>}/>
         <Route path="*" element={<PageNotFound />}/>
+
       </Routes>
     </Router>
     <Toast/>

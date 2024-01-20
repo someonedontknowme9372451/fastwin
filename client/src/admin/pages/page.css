@@ -1,0 +1,9 @@
+.admin{
+    /* background: #e0e0e0; */
+    background: white;
+    max-width: 100%;
+    flex: 0 0 100%;
+    height: 100vh;
+    padding-left: 15px;
+    padding-right: 15px;
+}
