@@ -1,4 +1,4 @@
-
+import './page.css';
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 const MyLink = () => {

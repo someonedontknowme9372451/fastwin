@@ -1,3 +1,4 @@
+import './page.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 //const Treasure_b= lazy(()=>import('../assets/images/Treasure_b.png'))

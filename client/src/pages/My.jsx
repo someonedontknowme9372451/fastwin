@@ -1,4 +1,4 @@
-
+import './page.css';
 import Navbar from '../components/Navbar'
 const My = () => {
   return (

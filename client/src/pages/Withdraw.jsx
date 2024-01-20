@@ -1,3 +1,4 @@
+import './page.css';
 const Withdraw = () => {
   return (
     <div>Withdraw</div>

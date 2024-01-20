@@ -1,4 +1,4 @@
-import React from 'react'
+import './component.css';
 
 const NS = ({num,period}) => {
   return (

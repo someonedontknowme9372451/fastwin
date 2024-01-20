@@ -1,4 +1,4 @@
-
+import './page.css';
 import {useNavigate} from 'react-router-dom'
 import Level from '../assets/images/3levelinv.jpg'
 import RFI from '../assets/images/newRFI.png'

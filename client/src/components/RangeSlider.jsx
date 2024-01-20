@@ -1,3 +1,4 @@
+import './component.css';
 const RangeSlider = ({ min, max, value, onChange }) => {
 
   return (

@@ -1,4 +1,4 @@
-
+import './component.css';
 const QS = ({period}) => {
   return (
     <div className='ball-box rcd-pillar'>

@@ -1,3 +1,4 @@
+import './component.css';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import home_s from '../assets/images/home_s.png';

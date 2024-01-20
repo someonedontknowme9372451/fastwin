@@ -1,3 +1,4 @@
+import './page.css';
 import {useNavigate} from 'react-router-dom';
 import errImage from '../assets/images/error_404.svg'
 

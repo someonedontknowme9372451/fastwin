@@ -1,3 +1,4 @@
+import './component.css';
 import { useState } from "react";
 
 const BottomDialog = ({value,isDialog}) => {

@@ -1,3 +1,4 @@
+import './component.css';
 const TS = ({num,period}) => {
     return (
       <div className='ball-box rcd-pillar'>

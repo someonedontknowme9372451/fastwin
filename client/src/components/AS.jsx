@@ -1,3 +1,4 @@
+import './component.css';
 const AS = ({num,period}) => {
     return (
       <div className='ball-box rcd-pillar'>
