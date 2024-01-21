@@ -31,29 +31,29 @@ const FastPartyComponent = () => {
         </div>
         <div className='table-box'>
             <table className="table">
-                <thead>
-                <tr role="row">
-                    <th className="sorting_disabled" style={{ width: '100px' }}>Result</th>
-                    <th className="sorting_disabled" style={{ width: '100px' }}>No. of Users</th>
-                    <th className="sorting_disabled" style={{ width: '100px' }}>Amount</th>
-                    <th className="sorting_disabled" style={{ width: '100px' }}>Number</th>
-                    <th className="sorting_disabled" style={{ width: '100px' }}>Amount</th>
-                    <th className="sorting_disabled" style={{ width: '39px' }}>Action</th>
+                <thead className='sorting-thead'>
+                <tr role="row" className='sorting-row'>
+                    <th className="sorting">Result</th>
+                    <th className="sorting">No. of Users</th>
+                    <th className="sorting">Amount</th>
+                    <th className="sorting-x">Number</th>
+                    <th className="sorting">Amount</th>
+                    <th className="sorting-x">Action</th>
                 </tr>
                 </thead>
                 <tbody id="betdetail" className='tbody'>
                 {colors.map((color, index) => (
-                    <tr key={index} className={index % 2 === 0 ? 'even' : 'odd'}>
-                    <td style={{background:color.code}}>
+                    <tr key={index} className={`sorting-row ${index % 2 === 0 ? 'even' : 'odd' }`}>
+                    <td style={{background:color.code}} className='sorting'>
                         <span style={{ color:'#fff',fontWeight:'500', fontFamily:'sans-serif'}}>{color.name}</span>
                     </td>
 
-                    <td className="text-orange">wait..</td>
+                    <td className="text-orange sorting">wait..</td>
 
-                    <td className="text-orange">wait..</td>
-                    <td className='text-black'>{index}</td>
-                    <td className="text-orange">wait..</td>
-                    <td>
+                    <td className="text-orange sorting">wait..</td>
+                    <td className='text-black sorting-x'>{index}</td>
+                    <td className="text-orange sorting">wait..</td>
+                    <td className="sorting-x">
                         <label>
                         <input
                             type="checkbox"
@@ -62,7 +62,6 @@ const FastPartyComponent = () => {
                             onChange={() => handleCheckboxChange(index)}
                             disabled={checkedIndex !== null}
                         />
-                        {/* Check */}
                         </label>
                     </td>
                     </tr>
