@@ -1,5 +1,5 @@
-import React from 'react';
 import './components.css';
+import ToggleButton from './ToggleButton';
 
 const WiningHeaderComponent = () => {
   return (
@@ -69,8 +69,11 @@ const WiningHeaderComponent = () => {
           </label>    
         </div>
       </div>
-      <div className='wining-con'>
-        <span>Do you want manual result ?</span>
+      <div className='wining-condition'>
+        <span className='toggle-tf'>Do you want manual result ?</span>
+          <div className='toggle-box'>
+          <ToggleButton/>
+          </div>
       </div>
     </div>
   );

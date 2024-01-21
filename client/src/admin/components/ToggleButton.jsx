@@ -2,7 +2,10 @@ import './components.css';
 
 const ToggleButton = () => {
   return (
-    <label><input value="on" name="dummy" type="checkbox" className="bubble"/></label>
+    <div>
+      <input type="checkbox" name='ckeckbox' id='toggle'/>
+      <label htmlFor="toggle" className='switch'></label>
+    </div>
   )
 }
 

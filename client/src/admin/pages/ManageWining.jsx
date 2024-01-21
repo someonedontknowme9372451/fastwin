@@ -5,7 +5,7 @@ import './page.css'
 
 const ManageWining = () => {
   return (
-    <div style={{background:'#ECF0F5', height:'150vh' ,paddingLeft:'15px',paddingRight:'15px',width:'100%',}}>
+    <div style={{background:'#ECF0F5' ,paddingLeft:'15px',paddingRight:'15px',width:'100%', height:'110vh'}}>
         <WiningHeaderComponent/>
         <FastPartyComponent/>
     </div>

@@ -50,10 +50,11 @@
     flex-wrap: wrap;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); 
     padding-bottom: 60px;  
+    border-top:#f4f4f4 3px solid;
 }
 .table-timer{
     width: 100%;
-    border-bottom: #ccc 1px solid;
+    border-bottom: #f4f4f4 2px solid;
     padding-bottom: 10px ;
     padding-left: 10px;
     padding-right: 10px;
@@ -148,13 +149,6 @@ td{
     padding: 10px;
 
 }
-.wining-con{
-    max-width: 30%;
-    flex: 0 0 30%;
-    display: flex;
-    flex-wrap: wrap;
-  
-}
 .wining-col{
     /* float: left; */
     justify-content: center;
@@ -173,4 +167,63 @@ td{
     margin: 4px 0 0;
     line-height: normal;
 }
+.wining-condition{
+    max-width: 30%;
+    flex: 0 0 30%;
+    display: flex;
+    padding: 10px;
+    flex-wrap: wrap;
+}
+.toggle-tf{
+    text-justify: auto;
+    text-align: end;
+}
+.toggle-box{
+    padding: 10px;
+    max-width: 100%;
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: right;
+}
+
+
+/* Toggle Button */
+
+.switch{
+   position: relative;
+   display: inline-block;
+   width: 3.5rem;
+   height: 1.8rem;
+   background-color: rgba(0, 0, 0, 0.25);
+   border-radius: 2rem;
+   transition: all 0.3s linear;
+}
+.switch::after{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    color: rgb(87, 31, 241);
+    content: 'off';
+    letter-spacing: 0.5px;
+    position: absolute;
+    top: 0.1rem;
+    left: 0.2rem;
+    background: #e0e0e0;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: all 0.3s linear;
+}
+input[type="checkbox"]:checked + .switch::after{
+   translate:1.5rem 0;
+   content: 'on';
+}
+input[type="checkbox"]:checked + .switch{
+   background-color: rgb(25, 246, 246);
+ }
+ input[type="checkbox"]{
+    display: none;
+ }
 
