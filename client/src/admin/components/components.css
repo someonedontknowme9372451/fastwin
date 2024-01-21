@@ -216,14 +216,14 @@ td{
     background-color: #fff;
     transition: all 0.3s linear;
 }
-input[type="checkbox"]:checked + .switch::after{
+.toggle:checked + .switch::after{
    translate:1.5rem 0;
    content: 'on';
 }
-input[type="checkbox"]:checked + .switch{
+.toggle:checked + .switch{
    background-color: rgb(25, 246, 246);
  }
- input[type="checkbox"]{
+ .toggle{
     display: none;
  }
 

@@ -3,7 +3,7 @@ import './components.css';
 const ToggleButton = () => {
   return (
     <div>
-      <input type="checkbox" name='ckeckbox' id='toggle'/>
+      <input type="checkbox" name='checkbox' className='toggle' id='toggle'/>
       <label htmlFor="toggle" className='switch'></label>
     </div>
   )
