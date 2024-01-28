@@ -1,38 +1,73 @@
-
+const { User } = require('../Model/user.model');
 const userService = require('../Services/user.service');
+const bcrypt = require('bcrypt');
 
 const createUserController = async (req, res) => {
   try {
-    if (!req.body.mobile || !req.body.password || !req.body.inviteCode) {
-      return res.status(400).json({ error: 'Bad Request - Missing required fields' });
+    const { mobile, password, inviteCode } = req.body;
+    
+    if (!mobile || !password || !inviteCode) {
+      return res.status(422).json({ error: 'Unprocessable Entity - Missing required fields' });
     }
-    const data = await userService.createUser(req.body.mobile, req.body.password,req.body.inviteCode);
-    if(!data){
-      res.status(400).json({err:"server error", data:"",success:false})
+
+    const existingUser = await User.findOne({ mobile });
+
+    if (existingUser) {
+      return res.status(409).json({ error: "User already exists" });
     }
-    return res.status(201).json({err:"", data:data,success:true});
+
+    const data = await userService.createUser(mobile, password, inviteCode);
+
+    if (!data) {
+      return res.status(500).json({ error: 'Server error', data: null, success: false });
+    }
+
+    return res.status(201).json({ message: 'User signed up successfully', data, success: true });
   } catch (error) {
-    //  console.error('Error in createUserController:', error.message);
-     return res.status(500).json({ error:  error });
+    return res.status(500).json({ error: error.message, success: false });
   }
 };
 
+const findUserController = async (req, res) => {
+  try {
+    const { mobile, password } = req.body;
 
-const findUserController=async(req,res)=>{
-   try{
-    const response = await userService.findUser(req.body.mobile);
-   if(!response){
-    return res.status(500).json({error: 'User not exist'})
-   }
-   if(response.password!=req.body.password){
-     return res.status(501).json({error: 'Wrong Password'})
-   }
-     return res.status(201).json({data:response})
+    // Check if the user exists
+    const user = await userService.findUser({ mobile });
 
+    if (!user) {
+      return res.status(404).json({ message: 'User does not exist' });
+    }
 
-   }catch(err){
-    return res.status(400).json({error: `Error fetching user:${err}`})
-   }
-}
+    // Compare the provided password with the hashed password stored in the database
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
-module.exports = { createUserController,findUserController };
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Incorrect password or mobile' });
+    }
+
+    // If user and password are valid, generate a token
+    const token = userService.createToken(user);
+
+    if (!token) {
+      return res.status(500).json({ error: 'Token not generated', success: false });
+    }
+   // console.log(token);  
+    res.cookie('token', token, {
+      withCredentials: true,
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production', // Use true in production with HTTPS
+    });
+
+    return res.status(200).json({
+      message: 'User logged in successfully',
+      success: true,
+      data: user,
+      token:token
+    });
+  } catch (err) {
+    return res.status(500).json({ error: `Error authenticating user: ${err.message}`, success: false });
+  }
+};
+
+module.exports = { createUserController, findUserController };

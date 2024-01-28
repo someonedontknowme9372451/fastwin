@@ -1,5 +1,5 @@
 // services/countdownService.js
-const { FastRecordModel } = require('../Model/user.model');
+const { FastRecordModel } = require('../Model/fastparity.model');
 
 const getCountdown = () => {
   const countDownDate = Date.now() / 1000;

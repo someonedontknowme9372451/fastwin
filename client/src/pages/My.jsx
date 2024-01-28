@@ -7,10 +7,10 @@ const My = () => {
      <Navbar/>
   <section className='nav-invwx stick'> 
     <div className="comifo myma  pb-3 pt-2">
-      <div className="my-col-2 xtl">
+      <div className="my-col-2 xtl-col">
         <span className="avatar"></span>
       </div>
-      <div className="my-col-10 xtl">
+      <div className="my-col-10 xtl-col">
         <div className="my-tf-18">
           <span id="u_nam">1</span>
         </div>
@@ -28,27 +28,6 @@ const My = () => {
       </div>
     </div>
   </section>
-
-   {/* <section id='profile'>
-   <div id='myProfile'>
-     <span className='avatar'></span>
-      <div id='data'>
-      <h2>1</h2>
-      <div id='id'>
-        Mob:<span>7905321205</span>,
-       ID:<span>232112</span>
-      </div>
-      </div>
-
-      <span className='info'></span>
-      <div id='myProfileButton'>
-    <button>Change Nick Name</button>
-    <button>Change Password</button>
-   </div>
-   
-   </div>
- 
-   </section> */}
 
    <section className='myList gap'>
      <div className='list'>

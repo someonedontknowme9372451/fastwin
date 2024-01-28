@@ -1,64 +1,77 @@
-import './page.css';
-import { useState } from 'react'
-import {useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+import './page.css';
+import BaseApi from '../api/BaseApi';
 
 const Register = () => {
-  const navigate= useNavigate();
+  const BASE_API_URL= BaseApi();
+  const navigate = useNavigate();
   const [isChecked] = useState(true);
-  const [data, setData] = useState({mobile:"",password:"",confirmPassword:"",inviteCode:"",otp:""})
-  function back(){
+  const [data, setData] = useState({
+    mobile: '',
+    password: '',
+    confirmPassword: '',
+    inviteCode: '',
+    otp: '',
+  });
 
-  }
-  function handleInputChange(event){
-      setData({...data,[event.target.name]:event.target.value});
-  }
+  const handleInputChangeEvent = (event) => {
+    setData({ ...data, [event.target.name]: event.target.value });
+  };
+
   const isInputDataValid =
-    data.mobile.trim().length === 10 &&
+    /^\d{10}$/.test(data.mobile.trim()) &&
     data.password.trim().length >= 6 &&
-    data.confirmPassword===data.password &&
-    data.otp.trim().length >= 6 &&
-    data.inviteCode.trim() !==''
+    data.confirmPassword === data.password &&
+    /^\d{6}$/.test(data.otp.trim()) &&
+    data.inviteCode.trim() !== '';
 
-  const handleRegister =async()=>{
-      if(isInputDataValid){
-     try{
-      const allData= {mobile:data.mobile,password:data.password,inviteCode:data.inviteCode}
-       const response =await axios.post('http://localhost:3000/user',allData);
-       if(response){
-         navigate('/login')
-       }
-     }catch(err){
-      if(err.response.data.error.code===11000){
-        toast.warning("user already exist",{
-          position: toast.POSITION.BOTTOM_CENTER,
-          className:"toast-message"
-          })
-        // alert(" user all ready exist")
+  const handleRegister = async () => {
+    if (isInputDataValid) {
+      try {
+        const { mobile, password, inviteCode } = data;
+        const response = await axios.post(`${BASE_API_URL}/signup`, { mobile, password, inviteCode });
+
+        if (response.data.success) {
+          toast.success('User registered successfully', {
+            position: toast.POSITION.BOTTOM_CENTER,
+            className: 'toast-message',
+          });
+          navigate('/login');
+        } else {
+          toast.warn(response.data.message, {
+            position: toast.POSITION.BOTTOM_CENTER,
+            className: 'toast-message',
+          });
+        }
+      } catch (err) {
+        handleRegistrationError(err);
       }
-      // console.log(err)
-      toast.error(err,{
-        position: toast.POSITION.BOTTOM_CENTER,
-        className:"toast-message"
-        });
-     }
-
-      }
-  }
-
-  const sendSMS = async () => {
-    const generateOTP = () => Math.floor(100000 + Math.random() * 900000);
-    const otp=generateOTP()
-    toast.error(otp,{
-      position: toast.POSITION.BOTTOM_CENTER,
-      className:"toast-message"
-      })
-    // alert(otp)
     }
-    
+  };
 
+  const handleRegistrationError = (error) => {
+    if (error.response && error.response.status === 409) {
+      toast.warn('User already exists', {
+        position: toast.POSITION.BOTTOM_CENTER,
+        className: 'toast-message',
+      });
+    } else {
+      toast.error(error.message, {
+        position: toast.POSITION.BOTTOM_CENTER,
+        className: 'toast-message',
+      });
+    }
+  };
+
+
+  const back = () => {
+    // Handle going back
+  };
+    
   return (
     <>
     <div>
@@ -69,7 +82,7 @@ const Register = () => {
       </div>
     </section>
     <section id='regHero'>
-      <img src='https://fastwin.app/includes/images/logo.png' alt=''></img>
+      <img src='https://fastwin.one/includes/images/logo.png' alt=''></img>
     </section>
     <section id='regInfo'>
       <div className='infoBox'>
@@ -77,28 +90,28 @@ const Register = () => {
       
       <h3>+91</h3>
       <input type='text' name='mobile' id='mobile' placeholder='Mobile Number' maxLength={10} 
-        onChange={handleInputChange}/>
+        onChange={handleInputChangeEvent}/>
       </div>
       <div className='infoBox'>
       <img  alt='' className='lock'/>
       <input type='text'  name='password' id='password' placeholder='Login Password (≥6 characters)' maxLength={15} 
-        onChange={handleInputChange} />
+        onChange={handleInputChangeEvent} />
       </div>
       <div className='infoBox'>
       <img  alt='' className='lock'/>
       <input type='text' name='confirmPassword' placeholder='Confirm Login Password' maxLength={15}  
-      onChange={handleInputChange}/>
+      onChange={handleInputChangeEvent}/>
       </div>
       <div className='infoBox'>
       <img  alt='' className='recommendation'/>
       <input type='text' id='invite' name='inviteCode' placeholder='invite Code' maxLength={20} 
-        onChange={handleInputChange}/>
+        onChange={handleInputChangeEvent}/>
       </div>
       <div className='infoBox'>
       <img  alt='' className='key'/>
       <input type='text' name='otp' placeholder='OTP' maxLength={6} 
-      onChange={handleInputChange}/>
-      <button onClick={sendSMS} >OTP</button>
+      onChange={handleInputChangeEvent}/>
+      <button >OTP</button>
       </div>
     </section>
     <section id='regButton'> 

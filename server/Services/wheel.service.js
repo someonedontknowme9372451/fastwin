@@ -1,4 +1,4 @@
-const { wheelModal } = require('../Model/user.model');
+const { wheelModal } = require('../Model/wheel.model');
 
 
 const getCountdown = () => {

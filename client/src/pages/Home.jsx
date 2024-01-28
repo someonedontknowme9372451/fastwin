@@ -1,5 +1,5 @@
 import './page.css';
-import  { useState } from 'react'
+import  { useCallback, useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import { useNavigate } from 'react-router-dom'
 import fastParityImage from '../assets/images/fast-parity.jpg'
@@ -10,22 +10,46 @@ import refreshIcon from '../assets/images/refresh_small.png';
 import referBannerImage from '../assets/images/refer_bn.svg';
 import  AnBImage from '../assets/images//AnB.jpg';
 import  sapreImage from '../assets/images/sapre.jpg';
-import  diceImage from '../assets/images/dice.jpg';
 import  wheelImage from '../assets/images/wheel.jpg';
 import  MineSweeperImage from '../assets/images/MineSweeper.png';
 import  jetxImage from '../assets/images/jetx.png';
+import diceImage from '../assets/images/dice.jpg'
 import  ludoImage from '../assets/images/ludo.png';
+import LoginAuth from '../Hooks/LoginAuth';
+import axios from 'axios';
+import BaseApi from '../api/BaseApi';
+
 
 const Home = () => {
   const [isRefresh, setIsRefresh] = useState(false);
+  const [balance, setBalance] = useState(null);
   const navigate = useNavigate();
-  
-  const handleAmountRefresh=()=>{
-    setIsRefresh(true)
-    setTimeout(()=>{
-        setIsRefresh(false)
-    },3000)
-  }
+  const user = LoginAuth();
+  const API_BASE_URL = BaseApi();
+  const fetchBalance = useCallback(async () => {
+    setIsRefresh(true);
+    try {
+      const response = await axios.post(`${API_BASE_URL}/`);
+      setTimeout(() => {
+        setBalance(response.data.user.balance);
+        setIsRefresh(false);
+      }, 1000);
+    } catch (error) {
+      console.error('Error refreshing balance:', error);
+      setIsRefresh(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      fetchBalance();
+    }
+  }, [user,fetchBalance]);
+
+  const handleAmountRefresh = useCallback(() => {
+    fetchBalance();
+  }, [fetchBalance]);
+
   
   return (
     <>
@@ -35,10 +59,10 @@ const Home = () => {
      <div className='info'>
      <h4>Balance</h4>
        <div className="amount">
-        ₹<h2>234.00</h2> <span id='refresh-box'><img className={isRefresh ? 'refresh active' : 'refresh'} src={refreshIcon} alt="refresh" onClick={handleAmountRefresh}/></span>
+       ₹<h2>{balance || '0'}</h2><span id='refresh-box'><img className={isRefresh ? 'refresh active' : 'refresh'} src={refreshIcon} alt="refresh" onClick={handleAmountRefresh}/></span>
        </div> 
       <div className="id">
-      ID: <h5>12345</h5>
+      ID: <h5>{user ? user.id : ''}</h5>
         </div>
      </div>
      <div id='button'>
@@ -79,7 +103,7 @@ const Home = () => {
     </div>
     <div className='col-6 pdl5'>
       <div className='icard'>
-        <img src={wheelImage} alt='fast-parity' onClick={()=>{navigate('/')}}/>
+        <img src={wheelImage} alt='fast-parity' onClick={()=>{navigate('/circle')}}/>
       </div>
     </div>
     <div className='col-6 pdr5'>
@@ -89,17 +113,22 @@ const Home = () => {
     </div>
     <div className='col-6 pdl5'>
       <div className='icard'>
-        <img src={MineSweeperImage} alt='fast-parity' onClick={()=>{navigate('/')}}/>
+        <img src={diceImage} alt='fast-parity' onClick={()=>{navigate('/dice')}}/>
       </div>
     </div>
     <div className='col-6 pdr5'>
       <div className='icard'>
-        <img src={ludoImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+        <img src={MineSweeperImage} alt='fast-parity' onClick={()=>{navigate('/')}}/>
       </div>
     </div>
     <div className='col-6 pdl5'>
       <div className='icard'>
-        <img src={sapreImage} alt='fast-parity' onClick={()=>{navigate('/fast-parity')}}/>
+        <img src={ludoImage} alt='fast-parity' onClick={()=>{navigate('/')}}/>
+      </div>
+    </div>
+    <div className='col-6 pdr5'>
+      <div className='icard'>
+        <img src={sapreImage} alt='fast-parity' onClick={()=>{navigate('/')}}/>
       </div>
     </div>
    </section>

@@ -5,8 +5,10 @@ import axios from 'axios';
 import RS from '../components/RS';
 import GS from '../components/GS';
 import QS from '../components/QS';
+import BaseApi from '../api/BaseApi';
 
 const Parity = () => {
+  const BASE_API_URL= BaseApi();
   const navigate = useNavigate();
   const [countdown, setCountdown] = useState({ minutes: '00', seconds: '00' });
   const [colorRecordsList, setColorRecordsList] = useState([]);
@@ -30,7 +32,7 @@ const Parity = () => {
 
   const handleFetchColors = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:3000/get-color-records/fast-parity');
+      const response = await axios.get(`${BASE_API_URL}/fast-parity`);
       setTimeout(() => {
         fetchColors(response);
       }, 3000);
@@ -70,7 +72,7 @@ const Parity = () => {
   useEffect(() => {
     const fetchColor = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/get-color-records/fast-parity');
+        const response = await axios.get(`${BASE_API_URL}/fast-parity`);
         const data = response.data.data.slice().reverse();
         setColorRecordsList(data.slice(-23));
       } catch (error) {

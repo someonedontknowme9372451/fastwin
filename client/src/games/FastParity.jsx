@@ -6,9 +6,11 @@ import RS from '../components/RS';
 import GS from '../components/GS';
 import QS from '../components/QS';
 import BottomDialog from '../components/BottomDialog';
+import BaseApi from '../api/BaseApi';
 
 
 const FastParity = () => {
+  const BASE_API_URL= BaseApi();
   const navigate = useNavigate();
   const [countdown, setCountdown] = useState('00');
   const [colorRecordsList, setColorRecordsList] = useState([]);
@@ -34,7 +36,7 @@ const FastParity = () => {
 
   const handleFetchColors = useCallback(async () => {
     try {
-      const response = await axios.get('https://fastwin.vercel.app/get-color-records/fast-parity');
+      const response = await axios.get(`${BASE_API_URL}/fast-parity`);
       setTimeout(() => {
         fetchColors(response);
       }, 3000);
@@ -72,10 +74,10 @@ const FastParity = () => {
   useEffect(() => {
     const fetchColor = async () => {
       try {
-        const response = await axios.get('https://fastwin.vercel.app/get-color-records/fast-parity');
+        const response = await axios.get(`${BASE_API_URL}/fast-parity`);
         const data = response.data.data.slice().reverse();
         setColorRecordsList(data.slice(-23));
-      } catch (error) {
+      }catch (error) {
         console.error('Error fetching color records:', error);
       }
     };

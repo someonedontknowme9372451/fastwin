@@ -1,50 +1,52 @@
-import './page.css';
-import  { useState } from 'react'
-import axios from 'axios'
-import {useNavigate} from 'react-router-dom'
-import { toast } from 'react-toastify'
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import BaseApi from '../api/BaseApi';
 
 const Login = () => {
- const [data, setData] = useState({mobile:"",password:""})
- const navigate= useNavigate();
-  function handleInput(event){
+  const BASE_API_URL= BaseApi();
+  const [data, setData] = useState({ mobile: '', password: '' });
+  const navigate = useNavigate();
+
+  const handleInput = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
-  }
+  };
+
   const isInputDataValid =
     data.mobile.trim() !== '' &&
     data.password.trim() !== '' &&
     data.mobile.trim().length === 10 &&
     data.password.trim().length >= 6;
 
+  const handleLogin = async () => {
+    if (isInputDataValid) {
+      try {
+        // Make a login request to the server
+        const response = await axios.post(`${BASE_API_URL}/login`, data);
 
-
-const handleLogin = async () => {
-  if (isInputDataValid) {
-    setData({ mobile: data.mobile, password: data.password });
-    try {
-      const response = await axios.post("http://localhost:3000/login",data);
-      if(response){
-        navigate('/')
-        // alert("Login successful!");
+        // Check if the login was successful based on the response
+        if (response.data.success) {
+          // Navigate to the home page
+          navigate('/');
+        }
+      } catch (error) {
+        // Check if there's a specific error message in the response
+        if (error.response.data.message) {
+          toast.warn(error.response.data.message, {
+            position: toast.POSITION.BOTTOM_CENTER,
+            className: 'toast-message',
+          });
+        } else if (error.response.status === 500 || error.response.status === 501) {
+          // Handle generic invalid credentials error
+          toast.error('Invalid credentials', {
+            position: toast.POSITION.BOTTOM_CENTER,
+            className: 'toast-message',
+          });
+        }
       }
-    } catch (error) {
-      if(error.response.status===500){
-        // alert("user not exist");
-        toast.warning("user not exist",{
-          position: toast.POSITION.BOTTOM_CENTER,
-          className:"toast-message"
-          })
-      }
-      if(error.response.status===501){
-        // alert("wrong password");
-        toast.warning("wrong password",{
-          position: toast.POSITION.BOTTOM_CENTER,
-          className:"toast-message"
-          })
-      }
-  }
-}
-};
+    }
+  };
 
   return (
     <>
@@ -55,7 +57,7 @@ const handleLogin = async () => {
       </section>
 
       <section id='logHero'>
-        <img src='https://fastwin.app/includes/images/logo.png' alt='Logo' height={56}></img>
+        <img src='https://fastwin.one/includes/images/logo.png' alt='Logo' height={56}></img>
       </section>
       <section id='logInput'>
         <div className='inpLog input-box' >

@@ -102,6 +102,7 @@ font-family: sans-serif;
 font-weight: 500;
 }
 #HomeTop .info .amount{
+letter-spacing: 1.2px;
 margin-top: 8px;
 font-size: 18px;
 display: flex;
@@ -119,6 +120,7 @@ font-weight: 700;
 }
 #refresh-box{
 padding: 1px;
+display: flex;
 padding-right: 0.5rem!important;
 }
 #refresh-box .refresh{
@@ -234,7 +236,7 @@ background-repeat: no-repeat;
     width: 100%;
     padding-right: 15px;
     padding-left: 15px;
-
+    margin-bottom: 80px !important;
 }
 
 .col-6{
@@ -649,6 +651,12 @@ cursor: pointer;
     text-align: center;
     text-align: -webkit-center;
 }
+.xtl-col{
+    display: flex;
+    justify-content: left;
+    padding-left: 15px;
+    flex-direction: column;
+}
 .pb-3 {
     padding-bottom: 1rem!important;
 }
@@ -684,6 +692,10 @@ background-color: #fff;
 #u_nam {
     font-family: monospace;
     color: #000;
+}
+#u_mob,#u_id{
+    color: #959ea6;
+    font-family: monospace;
 }
 .my-tf-12 {
     font-size: 12px;
@@ -788,6 +800,8 @@ vertical-align: middle;
 float: right;
 margin-top: 8px;
 }
+
+
 
 #signOut{
 margin-top: 30px;
