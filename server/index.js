@@ -44,14 +44,18 @@ app.get('*', (req, res) => {
 // Connect to the database and start the server
 const PORT = process.env.PORT || 3000;
 
-connectDB()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-    console.log("Database connected");
-  })
-  .catch((err) => {
-    console.error("Error connecting to Database:", err);
-    process.exit(1);
+connectDB();
+  // .then(() => {
+  //   app.listen(PORT, () => {
+  //     console.log(`Server is running on port ${PORT}`);
+  //   });
+  //   console.log("Database connected");
+  // })
+  // .catch((err) => {
+  //   console.error("Error connecting to Database:", err);
+  //  process.exit(1);
+  // });
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
   });
