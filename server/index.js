@@ -1,16 +1,15 @@
-require('dotenv').config(); // Add this line to load environment variables
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
-const cookieParser= require('cookie-parser')
-const connectDB = require('./db');
-const userRoutes = require('./Routes/user.routes');
-const fastParityRoutes = require('./Routes/fastparity.routes');
-const wheelRoutes = require('./Routes/wheel.routes');
-const AnBRoutes = require('./Routes/andarbahar.routes');
-const wheelService= require('./Services/wheel.service')
-const Authenticate = require('./Middlewares/auth')
+const cookieParser = require('cookie-parser');
 const path = require('path');
+const connectDB = require('./db');
+const cors = require('cors');
+const userRoutes = require('./routes/user.routes');
+const fastParityRoutes = require('./routes/fastparity.routes');
+const wheelRoutes = require('./routes/wheel.routes');
+const AnBRoutes = require('./routes/andarbahar.routes');
+
 const app = express();
 
 // Middleware
