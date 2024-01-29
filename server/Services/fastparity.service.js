@@ -1,28 +1,9 @@
-// services/countdownService.js
-const { FastRecordModel } = require('../Model/fastparity.model');
-
-const getCountdown = () => {
-  const countDownDate = Date.now() / 1000;
-  const distance = 30 - (countDownDate % 30);
-  const minutes = Math.floor(distance / 60);
-  const seconds = ('0' + Math.floor(distance % 60)).slice(-2);
-  return { minutes, seconds };
-};
-
-const updateColorRecord = async (color, number, period) => {
-  try {
-    const time = Date.now().toString();
-    const createColorRecord = await FastRecordModel.create({ color, number, period, time });
-    return createColorRecord;
-  } catch (err) {
-    console.error('Error updating color record:', err);
-    throw err;
-  }
-};
+// services/fastParityService.js
+const FastRecordModel = require('../Model/fastparity.model');
 
 const getColorRecords = async () => {
   try {
-    const colorRecords = await FastRecordModel.find().sort({ _id: -1 }).exec();
+    const colorRecords = await FastRecordModel.find().sort({ _id: -1 }).limit(30).lean().exec();
     return colorRecords;
   } catch (err) {
     console.error('Error fetching color records:', err);
@@ -30,26 +11,7 @@ const getColorRecords = async () => {
   }
 };
 
-const getColorPeriod = async () => {
-  try {
-    const colorPeriod = await FastRecordModel.findOne().sort({ _id: -1 }).exec();
-
-    if (!colorPeriod || isNaN(colorPeriod.period)) {
-      return 100;
-    }
-    if (parseInt(colorPeriod.period, 10) >= 999) {
-      await deleteAllColorRecord();
-    }
-
-    const period = parseInt(colorPeriod.period, 10);
-    return period;
-  } catch (err) {
-    console.error('Error fetching color period:', err);
-    throw err;
-  }
-};
-
-const deleteAllColorRecord = async () => {
+const deleteAllColorRecords = async () => {
   try {
     const res = await FastRecordModel.deleteMany({});
     return res;
@@ -59,38 +21,30 @@ const deleteAllColorRecord = async () => {
   }
 };
 
-const addNewOrder = async () => {
+const getPeriod = async () => {
   try {
-    const period = await getColorPeriod() + 1;
-    const randomNum = Math.floor(Math.random() * 10);
-    const color = randomNum % 2 === 0 ? 'red' : 'green';
-    const newOrder = await FastRecordModel.create({
-      color,
-      number: randomNum.toString(),
-      period,
-      time: Date.now().toString(),
-    });
-    console.log('New fast-parity order added:', newOrder);
+    const colorPeriod = await FastRecordModel.findOne({}).sort({ _id: -1 }).lean().exec();
+    if (!colorPeriod || isNaN(colorPeriod.period) || colorPeriod.period >= 999) {
+      await deleteAllColorRecords();
+      return 100;
+    }
+    return parseInt(colorPeriod.period) + 1;
   } catch (err) {
-    console.error('Error adding fast-parity new order:', err);
+    console.error('Error fetching color period:', err);
+    throw err;
   }
 };
 
-const autoUpdateColorRecordTime = () => {
-  const updateInterval = 1000;
-  setInterval(async () => {
-    try {
-      const countdown = getCountdown();
-      const seconds = parseInt(countdown.seconds);
-      if (seconds === 10) {
-      //  await addNewOrder();
-      }
-    } catch (err) {
-      console.error('Error updating color records time:', err);
-    }
-  }, updateInterval);
+const createColorRecord = async (color, number) => {
+  try {
+    const period = await getPeriod();
+    const currentTime = new Date();
+    const newOrder = await FastRecordModel.create({ color, number, period, time: currentTime });
+    return newOrder;
+  } catch (err) {
+    console.error('Error adding fast-parity new order:', err);
+    throw err;
+  }
 };
 
-autoUpdateColorRecordTime();
-
-module.exports = { updateColorRecord, getColorRecords };
+module.exports = { createColorRecord, getColorRecords, deleteAllColorRecords };

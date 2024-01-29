@@ -7,11 +7,15 @@ import GS from '../components/GS';
 import QS from '../components/QS';
 import BottomDialog from '../components/BottomDialog';
 import BaseApi from '../api/BaseApi';
+import { useCookies } from 'react-cookie';
+import RVS from '../components/RVS';
+import GVS from '../components/GVS';
 
 
 const FastParity = () => {
   const BASE_API_URL= BaseApi();
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(['record']);
   const [countdown, setCountdown] = useState('00');
   const [colorRecordsList, setColorRecordsList] = useState([]);
   const [activeTab, setActiveTab] = useState('everyOneOrder');
@@ -19,72 +23,74 @@ const FastParity = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isDialogOpenValue, setIsDialogOpenValue] = useState('')
 
-  const fetchColors = useCallback((response) => {
+
+  const fetchNewRecord = useCallback(async () => {
     try {
-      const data = response.data.data.slice().reverse();
+      const response = await axios.get(`${BASE_API_URL}/api/v1/fastParity`);
+      let data = Array.isArray(response.data) ? response.data.slice().reverse() : (response.data && Array.isArray(response.data.data) ? response.data.data.slice().reverse() : []);
+      
       if (data.length > 0) {
         const latestRecord = data[data.length - 1];
+        
         setColorRecordsList((prevRecords) => {
-          const isNotDuplicate = !prevRecords.some(record => record.time === latestRecord.time);
-          return isNotDuplicate ? [...prevRecords, latestRecord] : prevRecords;
+          const isNotDuplicate = !prevRecords.some(record => record.period === latestRecord.period);
+          if (isNotDuplicate) {
+            const newRecords = [...prevRecords, latestRecord];
+            setCookie('record', newRecords.length <= 29 ? newRecords.length : 19); // Update the cookie record based on the new records length
+            return newRecords;
+          } else {
+            return prevRecords;
+          }
         });
       }
-    } catch (error) {
-      console.error('Error fetching color records:', error);
-    }
-  }, []);
-
-  const handleFetchColors = useCallback(async () => {
-    try {
-      const response = await axios.get(`${BASE_API_URL}/fast-parity`);
-      setTimeout(() => {
-        fetchColors(response);
-      }, 3000);
     } catch (err) {
-      console.error('Error fetching color records:', err);
+      console.error('Error fetching new record:', err);
     }
-  }, [fetchColors]);
-
+  }, [BASE_API_URL, setColorRecordsList, setCookie]);
+  
   const updateCountdown = useCallback(() => {
     const countDownDate = Date.now() / 1000;
-    const distance = 30 - (countDownDate % 30);
+    const distance = 30 - (countDownDate % 30); // Change 30 to 180 for 3 minutes
     const seconds = ('0' + Math.floor(distance % 60)).slice(-2);
     setCountdown(seconds);
     setIsButtonDisabled(false);
-
-    if (colorRecordsList.length === 30) {
-      setColorRecordsList((prevRecords) => prevRecords.slice(-17));
-    }
-
-    if (parseInt(seconds, 10) < 10) {
+  
+    if (seconds < '10'){
       setIsButtonDisabled(true);
-     // setIsDialogOpen(false)
-    }
-
-    if (seconds === '03') {
-      handleFetchColors();
-    }
-  }, [handleFetchColors, setCountdown, setIsButtonDisabled, colorRecordsList.length]);
-
+    } 
+    if(seconds < '03'){
+      fetchNewRecord();
+    }  
+  }, [setCountdown, setIsButtonDisabled, fetchNewRecord]);
+  
   useEffect(() => {
     const intervalId = setInterval(updateCountdown, 1000);
     return () => clearInterval(intervalId);
   }, [updateCountdown]);
-
+  
   useEffect(() => {
+    let isMounted = true;
     const fetchColor = async () => {
       try {
-        const response = await axios.get(`${BASE_API_URL}/fast-parity`);
-        const data = response.data.data.slice().reverse();
-        setColorRecordsList(data.slice(-23));
-      }catch (error) {
+        const response = await axios.get(`${BASE_API_URL}/api/v1/fastParity`);
+        if (isMounted) {
+          if (!cookies.record) {
+            setCookie('record', 19);
+          }
+          let reversedData = Array.isArray(response.data) ? response.data.slice().reverse() : (response.data && Array.isArray(response.data.data) ? response.data.data.slice().reverse() : []);
+          setColorRecordsList(reversedData.slice(-cookies.record));
+        }
+      } catch (error) {
         console.error('Error fetching color records:', error);
       }
     };
-
     fetchColor();
-  }, []);
-
+    return () => {
+      isMounted = false;
+    };
+  }, [BASE_API_URL, cookies.record, setCookie, setColorRecordsList]);
+  
+  
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
@@ -202,15 +208,24 @@ const FastParity = () => {
                     <div className='g-record-col-txt'>Fast-Parity Record(s)</div> <div className='g-record-col-more'><span>more {'>'}</span></div>
                   </div>
                 <div className='g-record-box'>
-                {colorRecordsList.map((data) => (
-                    data.color === 'red' ? (
-                      <RS key={data.time} num={data.number} period={data.period} />
-                    ) : data.color === 'green' ? (
-                      <GS key={data.time} num={data.number} period={data.period} />
-                    ) : data.color === 'violet' ? (
-                      'h'
-                    ) : null
-                  ))}
+                {colorRecordsList.map((data) => {
+                    const number = data.number;
+                    const isEven = number.includes(2) || number.includes(4) || number.includes(6) || number.includes(8);
+                    const isOdd = number.includes(1) || number.includes(3) || number.includes(7) || number.includes(9);
+                    const isZero = number.includes(0);
+                    const isFive = number.includes(5);
+
+                    if (isEven) {
+                      return <RS key={data.time} num={number} period={data.period} />;
+                    } else if (isOdd) {
+                      return <GS key={data.time} num={number} period={data.period} />;
+                    } else if (isZero) {
+                      return <RVS key={data.time} period={data.period}/>
+                    } else if (isFive) {
+                      return <GVS key={data.time} period={data.period}/>;
+                    }
+                    return null;
+                })}
                   {/* Loader */}
                   {colorRecordsList.length > 0 && (
                     <QS period={+colorRecordsList[colorRecordsList.length - 1].period + 1} />

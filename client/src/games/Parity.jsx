@@ -32,14 +32,14 @@ const Parity = () => {
 
   const handleFetchColors = useCallback(async () => {
     try {
-      const response = await axios.get(`${BASE_API_URL}/fast-parity`);
+      const response = await axios.get(`${BASE_API_URL}/api/v1/fastParity`);
       setTimeout(() => {
         fetchColors(response);
       }, 3000);
     } catch (err) {
       console.error('Error fetching color records:', err);
     }
-  }, [fetchColors]);
+  }, [fetchColors,BASE_API_URL]);
 
   const updateCountdown = useCallback(() => {
     const countDownDate = Date.now() / 1000;
@@ -72,16 +72,17 @@ const Parity = () => {
   useEffect(() => {
     const fetchColor = async () => {
       try {
-        const response = await axios.get(`${BASE_API_URL}/fast-parity`);
-        const data = response.data.data.slice().reverse();
-        setColorRecordsList(data.slice(-23));
+        const response = await axios.get(`${BASE_API_URL}/api/v1/fastParity`);
+        console.log(response);
+       const data = response.data.data.slice().reverse();
+       setColorRecordsList(data.slice(-23));
       } catch (error) {
         console.error('Error fetching color records:', error);
       }
     };
 
     fetchColor();
-  }, []);
+  }, [fetchColors,BASE_API_URL]);
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);

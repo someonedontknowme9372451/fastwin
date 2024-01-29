@@ -8,6 +8,4 @@ const AnBRecordSchema= new mongoose.Schema({
 
 const AnBModal = mongoose.model('AnBRecord',AnBRecordSchema)
 
-module.exports = {  
-  AnBModal,
-};
+module.exports = AnBModal

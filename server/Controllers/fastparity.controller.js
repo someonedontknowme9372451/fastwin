@@ -1,36 +1,45 @@
-const fastParityService=require('../Services/fastparity.service')
+const fastParityService = require('../Services/fastparity.service');
 
-const updateColorRecord= async(req,res)=>{
-    const response= await fastParityService.updateColorRecord(req.body.color,req.body.number,req.body.period)
-    if(!response){
-        res.status(400).json({
-            data:'',
-            err:'server error',
-            success:false
-        });
-    }
-    res.status(200).json({
-        data:response,
-        err:'',
-        success:true
-    })
-}
+const handleResponse = (res, data, err) => {
+  if (err || !data) {
+    return res.status(500).json({
+      data: '',
+      err: err || 'Server error',
+      success: false,
+    });
+  }
+  return res.status(200).json({
+    data,
+    err: '',
+    success: true,
+  });
+};
 
-const getColorRecord= async(req,res)=>{
+const createRecordResponse = async (req, res) => {
+  try {
+    const response = await fastParityService.createColorRecord(req.body.color, req.body.number);
+    handleResponse(res, response);
+  } catch (err) {
+    handleResponse(res, null, err);
+  }
+};
+
+const getRecordResponse = async (req, res) => {
+  try {
     const response = await fastParityService.getColorRecords();
-    if(!response){
-        res.status(400).json({
-            data:'',
-            err:'server error',
-            success:false
-        });  
-    }
-    res.status(200).json({
-        data:response,
-        err:'',
-        success:true
-    })
-}
+    handleResponse(res, response);
+  } catch (err) {
+    handleResponse(res, null, err);
+  }
+};
 
-module.exports={updateColorRecord,getColorRecord}
+const deleteRecordsResponse = async (req, res) => {
+  try {
+    const response = await fastParityService.deleteAllColorRecords();
+    handleResponse(res, response);
+  } catch (err) {
+    handleResponse(res, null, err);
+  }
+};
 
+module.exports = { createRecordResponse, getRecordResponse, deleteRecordsResponse };

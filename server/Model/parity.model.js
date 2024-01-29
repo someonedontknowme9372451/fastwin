@@ -9,6 +9,4 @@ const parityRecordSchema = new mongoose.Schema({
 
   const parityRecordModel = mongoose.model('ParityRecord', parityRecordSchema);
 
-  module.exports = {
-    parityRecordModel,
-  };
+  module.exports = parityRecordModel

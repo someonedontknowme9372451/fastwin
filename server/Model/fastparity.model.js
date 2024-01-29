@@ -9,6 +9,4 @@ const fastParityRecordSchema = new mongoose.Schema({
 
   const fastParityRecordModel = mongoose.model('FastParityRecord', fastParityRecordSchema);
 
-  module.exports = {
-    fastParityRecordModel,
-  };
+  module.exports = fastParityRecordModel

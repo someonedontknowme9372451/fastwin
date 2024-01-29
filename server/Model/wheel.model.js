@@ -9,6 +9,4 @@ const wheelRecordSchema= new mongoose.Schema({
   const wheelModal=mongoose.model('WheelRecord',wheelRecordSchema)
 
 
-  module.exports = {
-    wheelModal,
-  };
+  module.exports = wheelModal

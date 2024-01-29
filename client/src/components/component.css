@@ -98,6 +98,20 @@
     color: #515151;
     font-weight: 500;
   }
+  .vil {
+    background-color: rgb(102, 85, 211);
+    position: absolute;
+    width: 14px;
+    border-radius: 0 15px 15px 0;
+    color: white;
+    text-align: center;
+    height: 28px;
+    display: inline-block;
+    box-shadow: rgb(0 0 0 / 40%) 0px 0px 2px;
+}
+.tpr {
+  position: relative;
+}
 
 @media (min-width: 0px){.rcd-pillar {transform:scale(0.80);}}
 @media (min-width: 320px){.rcd-pillar {transform:scale(0.86);}}

@@ -1,4 +1,4 @@
-const {AnBModal}= require('../Model/andarbahar.model');
+const AnBModal= require('../Model/andarbahar.model');
 
 const CreateAnBRecord= async (move,period,time)=>{
     try{

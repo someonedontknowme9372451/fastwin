@@ -1,5 +1,5 @@
-const jwt =  require('jsonwebtoken');
-const { User } = require('../Model/user.model');
+const jwt = require('jsonwebtoken');
+const User = require('../Model/user.model');
 
 async function createUser(mobile, password, inviteCode) {
   try {
@@ -13,7 +13,7 @@ async function createUser(mobile, password, inviteCode) {
 
     return newData;
   } catch (error) {
-    console.error('Error saving user data:', error.message);
+    console.error('Error creating user:', error.message);
     throw error;
   }
 }
@@ -21,7 +21,7 @@ async function createUser(mobile, password, inviteCode) {
 async function getNextId() {
   try {
     const lastUser = await User.findOne().sort({ _id: -1 });
-    return lastUser ? parseInt(lastUser.id,10) + 1 : 11111;
+    return lastUser ? parseInt(lastUser.id, 10) + 1 : 11111;
   } catch (error) {
     console.error('Error getting next ID:', error.message);
     throw error;
@@ -51,11 +51,7 @@ function createToken(user) {
       throw new Error('JWT secret not configured');
     }
 
-  
-    return jwt.sign({user},
-      process.env.JWT_SECRET, // Use your JWT secret stored in environment variables
-      { expiresIn: '1h' } // Set token expiration time
-    );
+    return jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '1h' });
   } catch (error) {
     console.error('Error creating JWT token:', error.message);
     throw error;

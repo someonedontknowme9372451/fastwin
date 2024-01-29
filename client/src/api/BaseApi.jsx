@@ -1,5 +1,5 @@
 const BaseApi = () => {
-  return 'http://fastwin.vercel.app';
+  return 'http://localhost:3000';
 }
 
 export default BaseApi

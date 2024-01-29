@@ -1,4 +1,4 @@
-const { User } = require('../Model/user.model');
+const  User  = require('../Model/user.model');
 const jwt = require('jsonwebtoken');
 
 const authenticateMiddleware = async (req, res) => {
@@ -24,7 +24,8 @@ const authenticateMiddleware = async (req, res) => {
     } catch (error) {
         if (error instanceof jwt.TokenExpiredError) {
             console.error('Token has expired');
-            return res.status(401).json({ status: false, message: 'Token has expired' });
+            res.clearCookie('token')
+           return res.status(401).json({ status: false, message: 'Token has expired' });
         }
         console.error('Error verifying token:', error);
         return res.status(500).json({ status: false, message: 'Internal server error' });
