@@ -2,7 +2,7 @@ require('dotenv').config(); // Add this line to load environment variables
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const cookieParser= require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const connectDB = require('./db');
 const userRoutes = require('./Routes/user.routes');
 const fastParityRoutes = require('./Routes/fastparity.routes');

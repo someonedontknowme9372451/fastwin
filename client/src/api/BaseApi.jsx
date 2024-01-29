@@ -1,5 +1,5 @@
 const BaseApi = () => {
-  return 'https://fastwin.vercel.app';
+  return 'http://fastwin.vercel.app';
 }
 
 export default BaseApi

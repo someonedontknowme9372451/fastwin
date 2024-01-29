@@ -21,22 +21,10 @@ const Invite = () => {
          </div>
        </div>
     </section>
-   {/* <section id='inviteWithdraw' className='nav-width'>
-   <div id='withdraw' className='nav-width'>
-    <div className='container'>
-      <span>Agent amount</span>
-      <h2>₹ 231</h2>
-    </div>
-    <div className='container'>
-      <button>Withdraw</button>
-    </div>  
-   </div>
-   </section> */}
-
    <section id='inviteContainer'>
-     <span onClick={()=>{navigate('/invite/privilege')}}>Privilege</span>
+     <span onClick={()=>{navigate('/privilege')}}>Privilege</span>
      <span id='line'></span>
-     <span onClick={()=>{navigate('/invite/my-link')}}>My Link</span>
+     <span onClick={()=>{navigate('/mylink')}}>My Link</span>
    </section>
    <div className='breakLine2'></div>
 

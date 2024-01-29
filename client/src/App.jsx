@@ -33,8 +33,8 @@ function App() {
           <Route path="/recharge" element={<Recharge />} />
           <Route path="/invite" element={<Invite />} />
           <Route path='/register' element={<Register/>}/>
-          <Route path='/invite/privilege' element={<Privilege/>}/>
-          <Route path='/invite/my-link' element={<MyLink/>}/>
+          <Route path='/privilege' element={<Privilege/>}/>
+          <Route path='/mylink' element={<MyLink/>}/>
           <Route path='/check-in' element={<CheckIn/>}/>
           <Route path='/task-reward' element={<TaskReward/>}/>
           <Route path='/fast-parity' element={<FastParity/>}></Route>

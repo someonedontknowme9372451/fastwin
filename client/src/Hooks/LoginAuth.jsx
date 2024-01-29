@@ -21,7 +21,7 @@ const LoginAuth = () => {
                 setUser(response.data.user);
             } catch (error) {
                 if (!cookies.token) {
-                   navigate('/login');
+                    navigate('/login');
                     console.log('token not found');
                 } 
                 else if (axios.isAxiosError(error)) {

@@ -58,6 +58,26 @@ const findUserController = async (req, res) => {
       httpOnly: false,
       secure: process.env.NODE_ENV === 'production', // Use true in production with HTTPS
     });
+    res.cookie('id',user.id, {
+      withCredentials: true,
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production', // Use true in production with HTTPS
+    });
+    res.cookie('mobile',user.mobile, {
+      withCredentials: true,
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production', // Use true in production with HTTPS
+    });
+    res.cookie('name',user.name, {
+      withCredentials: true,
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production', // Use true in production with HTTPS
+    });
+    res.cookie('invite',user.inviteCode, {
+      withCredentials: true,
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production', // Use true in production with HTTPS
+    });
 
     return res.status(200).json({
       message: 'User logged in successfully',
