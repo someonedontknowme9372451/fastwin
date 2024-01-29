@@ -1,15 +1,14 @@
-require('dotenv').config();
+require('dotenv').config(); // Add this line to load environment variables
 const express = require('express');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const path = require('path');
-const connectDB = require('./db');
 const cors = require('cors');
-const userRoutes = require('./routes/user.routes');
-const fastParityRoutes = require('./routes/fastparity.routes');
-const wheelRoutes = require('./routes/wheel.routes');
-const AnBRoutes = require('./routes/andarbahar.routes');
-
+const cookieParser= require('cookie-parser')
+const connectDB = require('./db');
+const userRoutes = require('./Routes/user.routes');
+const fastParityRoutes = require('./Routes/fastparity.routes');
+const wheelRoutes = require('./Routes/wheel.routes');
+const AnBRoutes = require('./Routes/andarbahar.routes');
+const path = require('path');
 const app = express();
 
 // Middleware
@@ -40,7 +39,7 @@ connectDB()
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/',Authenticate, (req, res) => {
+app.get('/', (req, res) => {
  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 //  res.send('hello')
 });
