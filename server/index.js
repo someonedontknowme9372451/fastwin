@@ -36,6 +36,11 @@ app.use((err, req, res, next) => {
   res.status(500).send('Internal Server Error');
 });
 
+// Serve the index.html for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+
 // Connect to the database and start the server
 const PORT = process.env.PORT || 3000;
 
