@@ -120,6 +120,7 @@ font-weight: 700;
 }
 #refresh-box{
 padding: 1px;
+margin-top: -0.8px;
 display: flex;
 padding-right: 0.5rem!important;
 }
@@ -915,10 +916,14 @@ padding-right: 15px;
 padding-bottom: 1rem!important;
 }
 #logButton button{
+display: flex;
+justify-content: center;
+align-items: center;
 background-color: #a5a5a5;
 transition-duration: 0s;
 box-shadow: #0000004d 0px 0px 10px;
 line-height: 48px;
+height: 48px;
 border-radius: 10px;
 font-size: 18px;
 font-weight: 600;
@@ -926,7 +931,7 @@ color: #fff;
 width: 100%;
 outline: none;
 border: none;
-/* pointer-events: none; */
+cursor: pointer;
 }
 #logButtons{
 display: flex;
@@ -955,6 +960,10 @@ transition: 0.3s;
 text-align: center;
 white-space: nowrap;
 width: 100%;
+}
+
+.loading-img{
+    animation: 1.2s spin linear infinite;
 }
 
 /* Register */
@@ -1092,10 +1101,14 @@ position: relative;
 width: 100%;
 }
 #regButton button{
+ display: flex;
+justify-content: center;
+align-items: center;
 background-color: #0093FF;
 transition-duration: 0s;
 box-shadow: #0000004d 0px 0px 10px;
 line-height: 48px;
+height: 48px;
 border-radius: 10px;
 font-size: 18px;
 font-weight: 600;

@@ -3,48 +3,51 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import BaseApi from '../api/BaseApi';
+import loadingImg from '../assets/images/download.png'
 
 const Login = () => {
-  const BASE_API_URL= BaseApi();
-  const [data, setData] = useState({ mobile: '', password: '' });
+  const BASE_API_URL = BaseApi();
+  const [formData, setFormData] = useState({ mobile: '', password: '' });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleInput = (event) => {
-    setData({ ...data, [event.target.name]: event.target.value });
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const isInputDataValid =
-    data.mobile.trim() !== '' &&
-    data.password.trim() !== '' &&
-    data.mobile.trim().length === 10 &&
-    data.password.trim().length >= 6;
+  const isValidInput = () => {
+    const { mobile, password } = formData;
+    return mobile.trim() !== '' && password.trim() !== '' && mobile.length === 10 && password.length >= 6;
+  };
+
+
+  const buttonStyle = {
+    backgroundColor: isValidInput() ? '#0093FF' : '#a5a5a5',
+    pointerEvents: isValidInput() ? 'all' : 'none'
+  };
+
 
   const handleLogin = async () => {
-    if (isInputDataValid) {
+    if (isValidInput()) {
+      setIsLoading(true);
       try {
-        // Make a login request to the server
-        const response = await axios.post(`${BASE_API_URL}/login`, data);
-
-        // Check if the login was successful based on the response
+        const response = await axios.post(`${BASE_API_URL}/login`, formData);
         if (response.data.success) {
-          // Navigate to the home page
+          setIsLoading(false);
           navigate('/');
+          toast.success('Login successful');
         }
       } catch (error) {
-        // Check if there's a specific error message in the response
-        if (error.response.data.message) {
-          toast.warn(error.response.data.message, {
-            position: toast.POSITION.BOTTOM_CENTER,
-            className: 'toast-message',
-          });
-        } else if (error.response.status === 500 || error.response.status === 501) {
-          // Handle generic invalid credentials error
-          toast.error('Invalid credentials', {
-            position: toast.POSITION.BOTTOM_CENTER,
-            className: 'toast-message',
-          });
+        setIsLoading(false);
+        if (error.response && error.response.data && error.response.data.message) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error('An error occurred. Please try again later.');
         }
       }
+    } else {
+      toast.error('Please enter valid mobile number and password.');
     }
   };
 
@@ -84,11 +87,9 @@ const Login = () => {
         </div>
       </section>
       <section id='logButton'>
-        {/* <button style={buttonStyles} onClick={handleLogin}>
-          {loading ?  <Loader/>: 'Login'}
-        </button> */}
-        <button onClick={handleLogin} style={{backgroundColor: isInputDataValid ? '#0093FF' : '#a5a5a5'}}>
-          Login
+  
+        <button onClick={handleLogin} style={buttonStyle}>
+          {!isLoading ? 'Login':<img src={loadingImg}  alt="Loading" height={30} className='loading-img'/> }
         </button>
       </section>
       <section id='logButtons'>

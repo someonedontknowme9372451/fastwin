@@ -4,10 +4,12 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import './page.css';
 import BaseApi from '../api/BaseApi';
+import loadingImg from '../assets/images/download.png'
 
 const Register = () => {
   const BASE_API_URL = BaseApi();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [isChecked, setIsChecked] = useState(true); // Added state for checkbox
 
   const [data, setData] = useState({
@@ -37,12 +39,18 @@ const Register = () => {
     /^\d{6}$/.test(data.otp.trim()) &&
     data.inviteCode.trim() !== '';
 
+  const buttonStyle = {
+    backgroundColor: isInputDataValid ? '#0093FF' : '#a5a5a5',
+    pointerEvents: isInputDataValid ? 'all' : 'none'
+  };
+
   const handleRegister = async () => {
     if (isInputDataValid) {
+      setIsLoading(true)
       try {
         const { mobile, password, inviteCode } = data;
         const response = await axios.post(`${BASE_API_URL}/signup`, { mobile, password, inviteCode });
-
+        setIsLoading(false)
         if (response.data.success) {
           toast.success('User registered successfully', {
             position: toast.POSITION.BOTTOM_CENTER,
@@ -56,6 +64,7 @@ const Register = () => {
           });
         }
       } catch (err) {
+        setIsLoading(false)
         handleRegistrationError(err);
       }
     }
@@ -149,12 +158,8 @@ const Register = () => {
         </div>
       </section>
       <section id="regButton">
-        <button
-          onClick={handleRegister}
-          style={{ backgroundColor: isInputDataValid ? '#0093FF' : '#a5a5a5' }}
-          disabled={!isInputDataValid} // Disabled button if input is not valid
-        >
-          Register
+        <button onClick={handleRegister} style={buttonStyle} >
+        {!isLoading ? 'Register':<img src={loadingImg}  alt="Loading" height={30} className='loading-img'/> }
         </button>
       </section>
       <section id="regLogin">
