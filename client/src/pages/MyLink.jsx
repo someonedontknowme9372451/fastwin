@@ -1,34 +1,43 @@
+import { useEffect, useState, useCallback } from 'react';
 import { useCookies } from 'react-cookie';
-import './page.css';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import BaseApi from '../api/BaseApi';
-import { useEffect, useState } from 'react';
+import ToastMessage from '../components/ToastMessage';
+import './page.css';
 
-const MyLink = () => {
+const MyLinkPage = () => {
   const navigate = useNavigate();
   const [inviteLink, setInviteLink] = useState('');
-  const [cookie] = useCookies(['invite']); // Changed to useCookies(['invite'])
+  const [cookie] = useCookies(['invite']);
   const BASE_URL = BaseApi();
 
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [isSuccessToast, setIsSuccessToast] = useState(true);
+
   useEffect(() => {
-    const userLink = `${BASE_URL}/register?invite=${cookie.invite}`; // Corrected the URL structure
+    const userLink = `${BASE_URL}/register?invite=${encodeURIComponent(cookie.invite || '0')}`;
     setInviteLink(userLink);
   }, [BASE_URL, cookie.invite]);
 
   const handleCopyClick = async () => {
     try {
       await navigator.clipboard.writeText(inviteLink);
-      toast.success('Link copied successfully', {
-        position: toast.POSITION.BOTTOM_CENTER,
-        className: 'toast-message',
-      });
+      showToastMessage('Link copied successfully!', true);
     } catch (err) {
-      toast.error('Unable to copy link to clipboard', {
-        position: toast.POSITION.BOTTOM_CENTER,
-        className: 'toast-message',
-      });
+      console.error('Error copying link:', err);
+      showToastMessage('Failed to copy link. Please try again.', false);
     }
+  };
+
+  const showToastMessage = useCallback((message, isSuccess) => {
+    setToastMessage(message);
+    setIsSuccessToast(isSuccess);
+    setShowToast(true);
+  }, []);
+
+  const handleCloseToast = () => {
+    setShowToast(false);
   };
 
   return (
@@ -53,8 +62,9 @@ const MyLink = () => {
         </div>
         <img src="/bn2.jpg" alt="" width="100%" />
       </section>
+      {showToast && <ToastMessage isSuccess={isSuccessToast} message={toastMessage} onClose={handleCloseToast} autoCloseTimeout={1000} />}
     </div>
   );
 };
 
-export default MyLink;
+export default MyLinkPage;

@@ -1101,7 +1101,7 @@ position: relative;
 width: 100%;
 }
 #regButton button{
- display: flex;
+display: flex;
 justify-content: center;
 align-items: center;
 background-color: #0093FF;
