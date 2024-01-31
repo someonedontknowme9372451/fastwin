@@ -1,6 +1,13 @@
 import './page.css';
 import Navbar from '../components/Navbar'
+import { useCookies } from 'react-cookie';
 const My = () => {
+  const [cookie] = useCookies('');
+
+  const name = cookie['name'];
+  const mobile = cookie['mobile'];
+  const id = cookie['id'];
+
   return (
     <>
      <div className='myAccount'>
@@ -12,13 +19,13 @@ const My = () => {
       </div>
       <div className="my-col-10 xtl-col">
         <div className="my-tf-18">
-          <span id="u_nam">1</span>
+          <span id="u_nam">{name}</span>
         </div>
         <div className="my-tf-12">
           Mob:
-          <span id="u_mob">7905321205</span>,
+          <span id="u_mob">{mobile}</span>,
           ID:
-          <span id="u_id">264227</span>
+          <span id="u_id">{id}</span>
         </div>
         <div className="infob"></div>
       </div>

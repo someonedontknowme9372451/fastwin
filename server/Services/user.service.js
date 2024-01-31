@@ -32,12 +32,10 @@ async function findUser(mobile) {
   try {
     const mobileValue = typeof mobile === 'object' ? mobile.mobile : mobile;
     const user = await User.findOne({ mobile: mobileValue });
-
     if (!user) {
       console.log(`User with mobile number ${mobileValue} not found.`);
       return null;
     }
-
     return user;
   } catch (error) {
     console.error('Error finding user:', error.message);

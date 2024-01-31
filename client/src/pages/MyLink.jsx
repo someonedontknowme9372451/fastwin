@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import BaseApi from '../api/BaseApi';
 import ToastMessage from '../components/ToastMessage';
 import './page.css';
+import bannerImage from '../assets/images/bn2.jpg'
 
 const MyLinkPage = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const MyLinkPage = () => {
   const handleCopyClick = async () => {
     try {
       await navigator.clipboard.writeText(inviteLink);
-      showToastMessage('Link copied successfully!', true);
+      showToastMessage('copy successfully!', true);
     } catch (err) {
       console.error('Error copying link:', err);
       showToastMessage('Failed to copy link. Please try again.', false);
@@ -60,7 +61,7 @@ const MyLinkPage = () => {
         <div className="inviteRuleTxt">
           Fastwin's rules and regulations prohibit multiple accounts. You may be blocked if you use multiple accounts or conduct suspicious activities.
         </div>
-        <img src="/bn2.jpg" alt="" width="100%" />
+        <img src={bannerImage} alt="" width="100%" />
       </section>
       {showToast && <ToastMessage isSuccess={isSuccessToast} message={toastMessage} onClose={handleCloseToast} autoCloseTimeout={1000} />}
     </div>

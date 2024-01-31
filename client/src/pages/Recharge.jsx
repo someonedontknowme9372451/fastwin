@@ -1,9 +1,11 @@
 import './page.css';
 import  { useState } from 'react'
 import Navbar from '../components/Navbar'
-
+import {useCookies} from 'react-cookie'
 const Recharge = () => {
+  const [cookie] = useCookies(['balance'])
   const [totalValue, setTotalValue] = useState("");
+
   function change(value) {
     setTotalValue(value);
   }
@@ -21,7 +23,7 @@ const Recharge = () => {
     </section>
     <section id="rechargeBal">
       <span>Balance</span>
-      <h2>₹455.5</h2>
+      <h2>₹{cookie.balance}</h2>
     </section>
     <section id='rechargeInput'>
       <h4>Amount</h4>

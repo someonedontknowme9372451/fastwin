@@ -18,6 +18,8 @@ import  ludoImage from '../assets/images/ludo.png';
 import LoginAuth from '../Hooks/LoginAuth';
 import axios from 'axios';
 import BaseApi from '../api/BaseApi';
+import { useCookies } from 'react-cookie';
+
 
 
 const Home = () => {
@@ -25,23 +27,27 @@ const Home = () => {
   const [balance, setBalance] = useState(null);
   const navigate = useNavigate();
   const user = LoginAuth();
+  const [cookie,setCookie] =useCookies([''])
+  const userId= cookie['id']
   const API_BASE_URL = BaseApi();
   const fetchBalance = useCallback(async () => {
     setIsRefresh(true);
     try {
       const response = await axios.post(`${API_BASE_URL}/`);
+      const balance= response.data.user.balance;
+      setCookie('balance',balance)
       setTimeout(() => {
-        setBalance(response.data.user.balance);
+        setBalance(balance);
         setIsRefresh(false);
       }, 1000);
     } catch (error) {
       console.error('Error refreshing balance:', error);
       setIsRefresh(false);
     }
-  }, []);
+  }, [API_BASE_URL,setCookie]);
 
   useEffect(() => {
-    if (user) {
+    if (user) {  
       fetchBalance();
     }
   }, [user,fetchBalance]);
@@ -62,8 +68,8 @@ const Home = () => {
        ₹<h2>{balance || '0'}</h2><span id='refresh-box'><img className={isRefresh ? 'refresh active' : 'refresh'} src={refreshIcon} alt="refresh" onClick={handleAmountRefresh}/></span>
        </div> 
       <div className="id">
-      ID: <h5>{user ? user.id : ''}</h5>
-        </div>
+      ID: <h5>{userId}</h5>
+       </div>
      </div>
      <div id='button'>
       <button>Recharge</button>

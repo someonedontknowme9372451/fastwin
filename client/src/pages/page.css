@@ -1088,6 +1088,7 @@ overflow: hidden;
 margin-right: 4px;
 outline: none;
 border: none;
+cursor: pointer;
 }
 #regButton{
 display: flex;
@@ -1114,10 +1115,9 @@ font-size: 18px;
 font-weight: 600;
 color: #fff;
 width: 100%;
-/* pointer-events: none; */
 border: none;
 outline: none;
-
+cursor: pointer;
 }
 #regLogin{
 margin-top: 30px;
@@ -1668,25 +1668,3 @@ width: 100%;
 
 }
 
-
-
-
-/* Toast  */
-
-
-.toast-message {
-margin: auto;
-background: rgba(0, 0, 0, 0.694) !important;
-color: #fff !important;
-font-size: 20px !important;
-width: 250px !important;
-font-size: 13px !important;
-padding: 10px 20px !important;
-border-radius: 5px !important;
-letter-spacing: 0.6px !important;
-word-spacing: 4px !important;
-}
-.Toastify__toast-container--bottom-center {
-top: 50%;
-transform: translate(-50%, -50%); 
-}

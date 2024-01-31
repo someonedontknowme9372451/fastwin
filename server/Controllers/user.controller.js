@@ -38,7 +38,6 @@ const findUserController = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User does not exist' });
     }
-
     // Compare the provided password with the hashed password stored in the database
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
@@ -52,7 +51,6 @@ const findUserController = async (req, res) => {
     if (!token) {
       return res.status(500).json({ error: 'Token not generated', success: false });
     }
-   // console.log(token);  
     res.cookie('token', token, {
       withCredentials: true,
       httpOnly: false,

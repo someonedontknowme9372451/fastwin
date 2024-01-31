@@ -7,7 +7,6 @@ import My from './pages/My';
 import Invite from './pages/Invite';
 import Recharge from './pages/Recharge';
 import Register from './pages/Register';
-import Toast from './components/Toast';
 import Privilege from './pages/Privilege';
 import MyLink from './pages/MyLink';
 import TaskReward from './pages/TaskReward';
@@ -48,7 +47,6 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
-      <Toast />
     </>
   );
 }

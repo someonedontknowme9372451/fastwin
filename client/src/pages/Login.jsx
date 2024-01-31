@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import BaseApi from '../api/BaseApi';
 import loadingImg from '../assets/images/download.png'
+import ToastMessage from '../components/ToastMessage'
 
 const Login = () => {
   const BASE_API_URL = BaseApi();
   const [formData, setFormData] = useState({ mobile: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [isSuccessToast, setIsSuccessToast] = useState(true);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -36,19 +40,26 @@ const Login = () => {
         if (response.data.success) {
           setIsLoading(false);
           navigate('/');
-          toast.success('Login successful');
         }
       } catch (error) {
         setIsLoading(false);
         if (error.response && error.response.data && error.response.data.message) {
-          toast.error(error.response.data.message);
+          toast(error.response.data.message,false)
         } else {
-          toast.error('An error occurred. Please try again later.');
+          toast('An error occurred. Please try again later.',false)
         }
       }
-    } else {
-      toast.error('Please enter valid mobile number and password.');
     }
+  };
+
+
+  const toast =(message,isSuccess)=>{
+    setToastMessage(message);
+    setIsSuccessToast(isSuccess);
+    setShowToast(true);
+  }
+  const handleCloseToast = () => {
+    setShowToast(false);
   };
 
   return (
@@ -96,6 +107,7 @@ const Login = () => {
         <div className="logbtn"><button onClick={()=>{navigate('/register')}}>Create an account</button></div>
         <div className="logbtn"><button onClick={()=>{navigate('/forgot')}}>Forgot Password?</button></div>
       </section>
+      {showToast && <ToastMessage isSuccess={isSuccessToast} message={toastMessage} onClose={handleCloseToast} autoCloseTimeout={5000} />}
     </div>
      
     </>

@@ -441,6 +441,7 @@ input[type=range]::-webkit-slider-thumb {
     text-align: justify;
     color: #fff;
     max-width: 236px;
+    min-width: 136px;
     padding: 10px;
     border-radius: 6px;
     top: 50%;
@@ -452,8 +453,9 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .toast-msg{
- font-size: 14px;
- 
+ font-size: 16px;
+ letter-spacing: 0.8px !important;
+ word-spacing: 4px !important;
 }
 
 @keyframes fadeIn {
